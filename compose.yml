@@ -6,6 +6,10 @@ services:
       context: .
       dockerfile: ./backend/compose/Dockerfile
     container_name: api
+    volumes:
+      - ./backend/:/code/app
+    environment:
+      - TZ=America/Los_Angeles
     networks:
       - traefik-public
     labels:
@@ -58,6 +62,31 @@ services:
       traefik.http.routers.dbgate-https.tls: "true"
       traefik.http.routers.dbgate-https.tls.certresolver: le
       traefik.http.services.dbgate.loadbalancer.server.port: "3000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/compose/Dockerfile
+    container_name: react
+    volumes:
+      - ./frontend/:/app
+    environment:
+      - TZ=America/Los_Angeles
+    networks:
+      - traefik-public
+    labels:
+      traefik.docker.network: traefik-public
+      traefik.enable: "true"
+      traefik.http.routers.react-http.entrypoints: http
+      traefik.http.routers.react-http.middlewares: https-redirect
+      traefik.http.routers.react-http.rule: Host(`frontend.react.local`)
+      traefik.http.routers.react-http.service: react
+      traefik.http.routers.react-https.entrypoints: https
+      traefik.http.routers.react-https.rule: Host(`frontend.react.local`)
+      traefik.http.routers.react-https.service: react
+      traefik.http.routers.react-https.tls: "true"
+      traefik.http.routers.react-https.tls.certresolver: le
+      traefik.http.services.react.loadbalancer.server.port: "3006"
 
 volumes:
   mongodb:

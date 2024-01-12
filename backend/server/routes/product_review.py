@@ -26,7 +26,7 @@ async def get_reviews() -> List[ProductReview]:
 
 
 @router.put("/{id}", response_description="Review record updated")
-async def update_student_data(id: PydanticObjectId, req: UpdateProductReview) -> ProductReview:
+async def update_review_data(id: PydanticObjectId, req: UpdateProductReview) -> ProductReview:
     req = {k: v for k, v in req.dict().items() if v is not None}
     update_query = {"$set": {
         field: value for field, value in req.items()
@@ -44,7 +44,7 @@ async def update_student_data(id: PydanticObjectId, req: UpdateProductReview) ->
 
 
 @router.delete("/{id}", response_description="Review record deleted from the database")
-async def delete_student_data(id: PydanticObjectId) -> dict:
+async def delete_review_data(id: PydanticObjectId) -> dict:
     record = await ProductReview.get(id)
 
     if not record:
