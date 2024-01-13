@@ -78,15 +78,15 @@ services:
       traefik.docker.network: traefik-public
       traefik.enable: "true"
       traefik.http.routers.react-http.entrypoints: http
-      traefik.http.routers.react-http.middlewares: https-redirect
+      # traefik.http.routers.react-http.middlewares: https-redirect
       traefik.http.routers.react-http.rule: Host(`frontend.react.local`)
       traefik.http.routers.react-http.service: react
-      traefik.http.routers.react-https.entrypoints: https
-      traefik.http.routers.react-https.rule: Host(`frontend.react.local`)
-      traefik.http.routers.react-https.service: react
-      traefik.http.routers.react-https.tls: "true"
-      traefik.http.routers.react-https.tls.certresolver: le
-      traefik.http.services.react.loadbalancer.server.port: "3006"
+      # traefik.http.routers.react-https.entrypoints: https
+      # traefik.http.routers.react-https.rule: Host(`frontend.react.local`)
+      # traefik.http.routers.react-https.service: react
+      # traefik.http.routers.react-https.tls: "true"
+      # traefik.http.routers.react-https.tls.certresolver: le
+      traefik.http.services.react.loadbalancer.server.port: "5173"
 
 volumes:
   mongodb:

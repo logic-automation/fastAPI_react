@@ -1,21 +1,12 @@
 import { useState } from 'react'
-import {
-  Route,
-  Routes,
-  BrowserRouter as Router,
-} from "react-router-dom";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import PageNotFound from "./404Page";
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={
           <>
             <div>
               <a href="https://vitejs.dev" target="_blank">
@@ -38,15 +29,6 @@ function App() {
               Click on the Vite and React logos to learn more
             </p>
           </>
-        } />
-        <Route
-          path="*"
-          element={
-          <PageNotFound />
-          }
-        />
-      </Routes>
-    </Router>
   )
 }
 
