@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from fastapi_restful.tasks import repeat_every
+
+
 
 from .database import init_db
 from .routes.product_review import router as Router
@@ -24,6 +27,10 @@ app.include_router(Router, tags=["Product Reviews"], prefix="/reviews")
 @app.on_event("startup")
 async def start_db():
     await init_db()
+    
+@repeat_every(seconds=60)
+async def hey():
+    print("hey")
 
 @app.get("/", tags=["Root"])
 async def read_root() -> dict:
